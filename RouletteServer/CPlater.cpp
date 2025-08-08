@@ -35,6 +35,8 @@ void CPlayer::reciveHandle(ClientSession* cs, char* pBuff, int count)
         sendstr = sendstr + accept + "\r\n\r\n";
 
         cs->addBuff(sendstr.c_str());
+
+        isWebSocketUpgrade = true;
     }
     else
     {

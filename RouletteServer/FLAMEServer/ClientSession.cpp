@@ -66,6 +66,7 @@ int ClientSession::recvData()
 
         if (_recvBuffSize < totalRecv + nRecv)
         {
+            //擴大buff
             std::shared_ptr<char> newBuff(new char[_recvBuffSize + RECV_BUFF_SIZE], std::default_delete<char[]>());
             if (_recvBuffSize > 0)
             {
@@ -73,9 +74,9 @@ int ClientSession::recvData()
             }
             _recvBuffSize += RECV_BUFF_SIZE;
             _recvBuff = newBuff;
-
-            memcpy((_recvBuff.get() + totalRecv), recvBuffer, nRecv);
         }
+        
+        memcpy((_recvBuff.get() + totalRecv), recvBuffer, nRecv);
 
         totalRecv += nRecv;
 
