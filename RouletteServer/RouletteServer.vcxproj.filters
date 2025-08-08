@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="來源檔案">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="標頭檔">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="資源檔">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="標頭檔\FLAMEServer">
+      <UniqueIdentifier>{201329f8-0ffc-4b54-98ad-2e82077a08ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="來源檔案\FLAMEServer">
+      <UniqueIdentifier>{c16db659-c2ca-4ef3-8dec-d97906f1aed8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="FLAMEServer\FLAMEServer.cpp">
+      <Filter>來源檔案\FLAMEServer</Filter>
+    </ClCompile>
+    <ClCompile Include="RouletteServer.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="FLAMEServer\ClientSession.cpp">
+      <Filter>來源檔案\FLAMEServer</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FLAMEServer\ClientSession.h">
+      <Filter>標頭檔\FLAMEServer</Filter>
+    </ClInclude>
+    <ClInclude Include="FLAMEServer\FLAMEServer.h">
+      <Filter>標頭檔\FLAMEServer</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
