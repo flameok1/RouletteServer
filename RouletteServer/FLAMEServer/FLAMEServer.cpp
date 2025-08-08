@@ -1,4 +1,4 @@
-#include "FLAMEServer.h"
+ï»¿#include "FLAMEServer.h"
 #include "stdio.h"
 #include <thread>
 #include <iostream>
@@ -21,7 +21,7 @@ void FLAMEServer::initWSA()
 #ifdef _WIN32
 	// Initialize Winsock for Window
 	WSADATA wsaData;
-	int iResult = WSAStartup(MAKEWORD(2, 2), &wsaData); //·|²Ö¥[ref
+	int iResult = WSAStartup(MAKEWORD(2, 2), &wsaData); //æœƒç´¯åŠ ref
 	if (iResult != 0) {
 		printf("WSAStartup failed with error: %d\n", iResult);
 	}
@@ -34,7 +34,7 @@ void FLAMEServer::initWSA()
 void FLAMEServer::releaseWSA()
 {
 #ifdef _WIN32
-	WSACleanup(); //·|²Ö´îref
+	WSACleanup(); //æœƒç´¯æ¸›ref
 #endif
 }
 
@@ -139,9 +139,9 @@ void FLAMEServer::nonBlockListenThread()
             return;
         }
 
-        FD_ZERO(&rfd); //²M°£read buff
-        FD_ZERO(&wfd); //²M°£write buff
-        FD_SET(_socket, &rfd); //¨C­Ósocket¹ïÀ³ID¬O¤£­«½Æªº¡A¤£·|¤¬¬ÛÂĞ»\
+        FD_ZERO(&rfd); //æ¸…é™¤read buff
+        FD_ZERO(&wfd); //æ¸…é™¤write buff
+        FD_SET(_socket, &rfd); //æ¯å€‹socketå°æ‡‰IDæ˜¯ä¸é‡è¤‡çš„ï¼Œä¸æœƒäº’ç›¸è¦†è“‹
 
         for (auto cs : _clientSockts)
         {
@@ -153,8 +153,8 @@ void FLAMEServer::nonBlockListenThread()
         timeout.tv_usec = SELECT_TIMEOUT % 1000 * 1000;
 
 #ifdef _WIN32
-        //®É¶¡°Ñ¼Æ¡G¦pªG¬°NULL·|¥Ã»·ªı¶ë¡Aª½¨ì¥X²{¥iÅª/¥i¼g/²§±`¤~·|¤Z¦^¡A¦pªG¤£¬°NULL¥Nªí¦h¤[«áªğ¦^
-        //selectªğ¦^­È¤j©ó0¡Aªí¥ÜÅTÀ³ªºsocket¼Æ¶q¡A¦pªGµ¥©ó0¶W®É¡A¦pªG¤p©ó0«h¥Nªíµo¥Í¿ù»~
+        //æ™‚é–“åƒæ•¸ï¼šå¦‚æœç‚ºNULLæœƒæ°¸é é˜»å¡ï¼Œç›´åˆ°å‡ºç¾å¯è®€/å¯å¯«/ç•°å¸¸æ‰æœƒå‡¡å›ï¼Œå¦‚æœä¸ç‚ºNULLä»£è¡¨å¤šä¹…å¾Œè¿”å›
+        //selectè¿”å›å€¼å¤§æ–¼0ï¼Œè¡¨ç¤ºéŸ¿æ‡‰çš„socketæ•¸é‡ï¼Œå¦‚æœç­‰æ–¼0è¶…æ™‚ï¼Œå¦‚æœå°æ–¼0å‰‡ä»£è¡¨ç™¼ç”ŸéŒ¯èª¤
         ret = select(0, &rfd, &wfd, NULL, &timeout);
 #else
         ret = select(fd + 1, &rfd, &wfd, NULL, &timeout);
@@ -174,8 +174,14 @@ void FLAMEServer::nonBlockListenThread()
                 return;
             }
             setSocketBlockingEnabled(clientSocket, false);
-            _clientSockts.push_back(makeClientSession(clientSocket));
+            std::shared_ptr<ClientSession> newClient = makeClientSession(clientSocket);
+            _clientSockts.push_back(newClient);
             printf("accept a connect\n");
+
+            if (_connectCB != nullptr)
+            {
+                _connectCB(newClient.get());
+            }
         }
         else
         {
@@ -186,7 +192,7 @@ void FLAMEServer::nonBlockListenThread()
                 {
                     int totalRecv = _clientSockts[i]->recvData();
                     
-                    //·í±µ¦¬¨ìªº¼Æ¾Ú¤p©óµ¥©ó0®É¡A¥Nªí«È¤áºİÂ_¶}³s±µ©Îµo¥Í¿ù»~
+                    //ç•¶æ¥æ”¶åˆ°çš„æ•¸æ“šå°æ–¼ç­‰æ–¼0æ™‚ï¼Œä»£è¡¨å®¢æˆ¶ç«¯æ–·é–‹é€£æ¥æˆ–ç™¼ç”ŸéŒ¯èª¤
                     if (totalRecv <= 0)
                     {
                         if (totalRecv < 0)
@@ -279,7 +285,7 @@ void FLAMEServer::sessionHandleThread(std::shared_ptr<ClientSession> clientSessi
     {
         int totalRecv = clientSession->recvData();
 
-        //·í±µ¦¬¨ìªº¼Æ¾Ú¤p©óµ¥©ó0®É¡A¥Nªí«È¤áºİÂ_¶}³s±µ©Îµo¥Í¿ù»~
+        //ç•¶æ¥æ”¶åˆ°çš„æ•¸æ“šå°æ–¼ç­‰æ–¼0æ™‚ï¼Œä»£è¡¨å®¢æˆ¶ç«¯æ–·é–‹é€£æ¥æˆ–ç™¼ç”ŸéŒ¯èª¤
         if (totalRecv < 0)
         {
             std::cout << "Socket recv data error." << std::endl;
@@ -335,6 +341,11 @@ void FLAMEServer::setSocketType(int socktype)
 void FLAMEServer::setProtocol(int protocol)
 {
     _protocol = protocol;
+}
+
+void FLAMEServer::setConnectCB(connectCallBack connectCB)
+{
+    _connectCB = connectCB;
 }
 
 void FLAMEServer::setRecvCB(recvCallBack recvCB)

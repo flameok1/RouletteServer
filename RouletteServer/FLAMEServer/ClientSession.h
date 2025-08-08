@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #ifdef _WIN32
 /* See http://stackoverflow.com/questions/12765743/getaddrinfo-on-win32 */
@@ -49,52 +49,52 @@ private:
 
 protected:
 	/// <summary>
-	/// Ãö³¬flag
+	/// é—œé–‰flag
 	/// </summary>
 	bool _isNeedClose;
 public:
 	/// <summary>
-	/// ¨ú±osocket
+	/// å–å¾—socket
 	/// </summary>
 	SOCKET getSocket();
 
 	/// <summary>
-	/// ¨ú±orecv buff
+	/// å–å¾—recv buff
 	/// </summary>
 	char* getRecvBuff();
 
 	/// <summary>
-	/// ·s¼W¸ê®Æ¨ìsend buff
+	/// æ–°å¢è³‡æ–™åˆ°send buff
 	/// </summary>
 	void addBuff(const char* pBuff);
 
 	/// <summary>
-	/// ¨ú±osend buff
+	/// å–å¾—send buff
 	/// </summary>
 	std::string& getSendBuff();
 
 	/// <summary>
-	/// ²M°£send buff
+	/// æ¸…é™¤send buff
 	/// </summary>
 	void clearSendBuff();
 
 	/// <summary>
-	/// Ãö³¬socket
+	/// é—œé–‰socket
 	/// </summary>
 	void closeSession();
 
 	/// <summary>
-	/// ±µ¦¬ºô¸ô¸ê®Æ
+	/// æ¥æ”¶ç¶²è·¯è³‡æ–™
 	/// </summary>
 	virtual int recvData();
 	
 	/// <summary>
-	/// ¶Ç°eºô¸ô¸ê®Æ
+	/// å‚³é€ç¶²è·¯è³‡æ–™
 	/// </summary>
 	virtual int sendData();
 
 	/// <summary>
-	/// ¬O¤£¬O»İ­nÃö³¬
+	/// æ˜¯ä¸æ˜¯éœ€è¦é—œé–‰
 	/// </summary>
 	bool isNeedClose();
 };

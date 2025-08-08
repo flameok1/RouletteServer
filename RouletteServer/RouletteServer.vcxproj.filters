@@ -30,6 +30,9 @@
     <ClCompile Include="FLAMEServer\ClientSession.cpp">
       <Filter>來源檔案\FLAMEServer</Filter>
     </ClCompile>
+    <ClCompile Include="CPlater.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FLAMEServer\ClientSession.h">
@@ -37,6 +40,18 @@
     </ClInclude>
     <ClInclude Include="FLAMEServer\FLAMEServer.h">
       <Filter>標頭檔\FLAMEServer</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayer.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="CHttpParser.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="SHA1.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Base64.h">
+      <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

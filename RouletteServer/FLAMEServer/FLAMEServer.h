@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #ifdef _WIN32
 /* See http://stackoverflow.com/questions/12765743/getaddrinfo-on-win32 */
@@ -24,6 +24,9 @@
 
 #define SELECT_TIMEOUT 10
 
+typedef void (*connectCallBack)(ClientSession* pSesssion);
+typedef std::function<void(ClientSession*)> connectCallBackFunction;
+
 typedef void (*recvCallBack)(ClientSession* pSesssion, char* pBuff, int recvCount);
 typedef std::function<void(ClientSession*, char*, int)> recvCallbackFunction;
 
@@ -31,7 +34,7 @@ typedef void (*disconnectCallBack)(ClientSession* pSesssion);
 typedef std::function<void(ClientSession*)> disconnectCallBackFunction;
 
 /// <summary>
-/// FLAMEServer ¤õµKªA°È¾¹
+/// FLAMEServer ç«ç„°æœå‹™å™¨
 /// </summary>
 class FLAMEServer
 {
@@ -40,47 +43,47 @@ public:
 	~FLAMEServer();
 private:
 	/// <summary>
-	/// window socket »İ­nªì©l¤Æwsa
+	/// window socket éœ€è¦åˆå§‹åŒ–wsa
 	/// </summary>
 	void initWSA();
 
 	/// <summary>
-	/// window socket »İ­nÄÀ©ñ wsa
+	/// window socket éœ€è¦é‡‹æ”¾ wsa
 	/// </summary>
 	void releaseWSA();
 
 	/// <summary>
-	/// Ãö³¬socket
+	/// é—œé–‰socket
 	/// </summary>
 	void sockClose();
 
 	/// <summary>
-	/// ³]©wserver socket non block
+	/// è¨­å®šserver socket non block
 	/// </summary>
 	bool setSocketBlockingEnabled(SOCKET fd, bool blocking);
 
 	/// <summary>
-	/// °»Å¥¥Î nonBlock thread
+	/// åµè½ç”¨ nonBlock thread
 	/// </summary>
 	void nonBlockListenThread();
 
 	/// <summary>
-	/// °»Å¥¥Î block thread
+	/// åµè½ç”¨ block thread
 	/// </summary>
 	void blockListenThread();
 
 	/// <summary>
-	/// °±¤îthread¥Î flag
+	/// åœæ­¢threadç”¨ flag
 	/// </summary>
 	std::atomic<bool> shutDownFlag;
 
 	/// <summary>
-	/// ³B²z session update thread ¡A¥i¥Hsend¸û¤j¸ê®Æ¤£¼vÅT ¥Dlisten thread
+	/// è™•ç† session update thread ï¼Œå¯ä»¥sendè¼ƒå¤§è³‡æ–™ä¸å½±éŸ¿ ä¸»listen thread
 	/// </summary>
 	void sessionHandleThread(std::shared_ptr<ClientSession> clientSession);
 
 	/// <summary>
-	/// socket©M°Ñ¼Æ
+	/// socketå’Œåƒæ•¸
 	/// </summary>
 	SOCKET _socket;
 	int _family;
@@ -93,30 +96,38 @@ private:
 	int _port;
 
 	/// <summary>
-	/// ¨Ï¥Îblock ¼Ò¦¡
+	/// ä½¿ç”¨block æ¨¡å¼
 	/// </summary>
 	bool _useBlockSocketServer;
 
 	/// <summary>
-	/// ¤w¸g³s½uªºclient
+	/// å·²ç¶“é€£ç·šçš„client
 	/// </summary>
 	std::vector<std::shared_ptr<ClientSession>> _clientSockts;
 
 	/// <summary>
-	/// µù¥Uªºrecv call back
+	/// è¨»å†Šçš„é€£ç·šCB
+	/// </summary>
+	connectCallBackFunction _connectCB = nullptr;
+
+	/// <summary>
+	/// è¨»å†Šçš„recv call back
 	/// </summary>
 	recvCallbackFunction _recvCB = nullptr; //void *_recvCB(char *pBuff)
 
+	/// <summary>
+	/// è¨»å†Šçš„æ–·ç·šCB
+	/// </summary>
 	disconnectCallBackFunction _disconnectCB = nullptr;
 
 protected:
 	/// <summary>
-	/// ±µ¦¬¸ê®Æ«á ³B²zfunction
+	/// æ¥æ”¶è³‡æ–™å¾Œ è™•ç†function
 	/// </summary>
 	virtual void recvHandle(ClientSession *pSession, char* pBuff, int recvCount);
 
 	/// <summary>
-	/// Â_½u³B²zfunction
+	/// æ–·ç·šè™•ç†function
 	/// </summary>
 	virtual void disconnectHandle(ClientSession* pSession);
 
@@ -126,18 +137,21 @@ protected:
 	virtual std::shared_ptr<ClientSession> makeClientSession(SOCKET skt);
 public:
 	/// <summary>
-	/// ±Ò°Ê server
+	/// å•Ÿå‹• server
 	/// </summary>
 	virtual bool start(int port);
 
-	//³]©w±µ¦¬CB
+	//è¨­å®šé€£ç·šCB
+	void setConnectCB(connectCallBack connectCB);
+
+	//è¨­å®šæ¥æ”¶CB
 	void setRecvCB(recvCallBack);
 
-	//³]©wÂ_½uCB
+	//è¨­å®šæ–·ç·šCB
 	void setDisconnectCB(disconnectCallBack disconnectCB);
 
 	/// <summary>
-	/// µ¥«İserver Ãö³¬
+	/// ç­‰å¾…server é—œé–‰
 	/// </summary>
 	void waitShutDown();
 
@@ -147,17 +161,17 @@ public:
 	void setFamily(int family);
 
 	/// <summary>
-	/// ³]©wsocket type
+	/// è¨­å®šsocket type
 	/// </summary>
 	void setSocketType(int socktype);
 
 	/// <summary>
-	/// ³]©wsocket protocal
+	/// è¨­å®šsocket protocal
 	/// </summary>
 	void setProtocol(int protocol);
 
 	/// <summary>
-	/// §ó§ïblock³]©w
+	/// æ›´æ”¹blockè¨­å®š
 	/// </summary>
 	void switchBolckMode(bool);
 };

@@ -1,4 +1,4 @@
-#include "ClientSession.h"
+ï»¿#include "ClientSession.h"
 
 
 
@@ -51,9 +51,9 @@ int ClientSession::recvData()
 
     while (true)
     {
-        nRecv = recv(_clientSocket, recvBuffer, 1024, 0);
+        nRecv = recv(_clientSocket, recvBuffer, RECV_BUFF_SIZE, 0);
 
-        //·í±µ¦¬¨ìªº¼Æ¾Ú¤p©óµ¥©ó0®É¡A¥Nªí«È¤áºİÂ_¶}³s±µ©Îµo¥Í¿ù»~
+        //ç•¶æ¥æ”¶åˆ°çš„æ•¸æ“šå°æ–¼ç­‰æ–¼0æ™‚ï¼Œä»£è¡¨å®¢æˆ¶ç«¯æ–·é–‹é€£æ¥æˆ–ç™¼ç”ŸéŒ¯èª¤
         if (nRecv < 0)
         {
             return nRecv;
@@ -94,7 +94,7 @@ int ClientSession::sendData()
     if (_sendBuff.length() > 0)
     {
         int nsend = send(_clientSocket, _sendBuff.c_str(), (int)_sendBuff.length(), 0);
-        printf("send %d byte.\n", nsend);
+        printf("\nsend %d byte.\n", nsend);
         clearSendBuff();
 
         return nsend;

@@ -123,13 +123,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CPlater.cpp" />
     <ClCompile Include="FLAMEServer\ClientSession.cpp" />
     <ClCompile Include="FLAMEServer\FLAMEServer.cpp" />
     <ClCompile Include="RouletteServer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Base64.h" />
+    <ClInclude Include="CPlayer.h" />
     <ClInclude Include="FLAMEServer\ClientSession.h" />
     <ClInclude Include="FLAMEServer\FLAMEServer.h" />
+    <ClInclude Include="CHttpParser.h" />
+    <ClInclude Include="SHA1.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
