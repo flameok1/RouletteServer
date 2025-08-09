@@ -32,26 +32,29 @@ private:
 	/// </summary>
 	SOCKET _clientSocket;
 
+	int _nowSendCount = 0;
+	int _sendBuffSize = 0;
+
 	/// <summary>
 	/// send buff
 	/// </summary>
-	std::string _sendBuff;
+	std::shared_ptr<uint8_t> _sendBuff = nullptr;
 
 	/// <summary>
 	/// recv buff size
 	/// </summary>
-	int _recvBuffSize;
+	int _recvBuffSize = 0;
 
 	/// <summary>
 	/// recv buff shared ptr
 	/// </summary>
-	std::shared_ptr<char> _recvBuff;
+	std::shared_ptr<uint8_t> _recvBuff = nullptr;
 
 protected:
 	/// <summary>
 	/// 關閉flag
 	/// </summary>
-	bool _isNeedClose;
+	bool _isNeedClose = false;
 public:
 	/// <summary>
 	/// 取得socket
@@ -61,17 +64,17 @@ public:
 	/// <summary>
 	/// 取得recv buff
 	/// </summary>
-	char* getRecvBuff();
+	uint8_t* getRecvBuff();
 
 	/// <summary>
 	/// 新增資料到send buff
 	/// </summary>
-	void addBuff(const char* pBuff);
+	void addBuff(const uint8_t*, int);
 
 	/// <summary>
 	/// 取得send buff
 	/// </summary>
-	std::string& getSendBuff();
+	uint8_t* getSendBuff();
 
 	/// <summary>
 	/// 清除send buff

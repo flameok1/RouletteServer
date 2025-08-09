@@ -21,7 +21,7 @@ void connectHandle(ClientSession* cs)
     Players.emplace(cs->getSocket(), newPlayer);
 }
 
-void recvHandle(ClientSession* cs, char* pBuff, int count)
+void recvHandle(ClientSession* cs, uint8_t* pBuff, int count)
 {
     auto PairPlayer = Players.find(cs->getSocket());
     if (PairPlayer == Players.end())

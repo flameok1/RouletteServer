@@ -3,7 +3,7 @@
 
 
 ClientSession::ClientSession(SOCKET skt)
-    : _clientSocket(skt), _sendBuff(""), _recvBuffSize(0), _recvBuff(nullptr), _isNeedClose(false)
+    : _clientSocket(skt)
 {
 
 }
@@ -13,17 +13,30 @@ SOCKET ClientSession::getSocket()
     return _clientSocket;
 }
 
-void ClientSession::addBuff(const char* pBuff)
+void ClientSession::addBuff(const uint8_t* buff, int size)
 {
-    _sendBuff += std::string(pBuff);
+    if (_nowSendCount + size > _sendBuffSize)
+    {
+        //擴大buff
+        std::shared_ptr<uint8_t> newBuff(new uint8_t[_sendBuffSize + RECV_BUFF_SIZE], std::default_delete<uint8_t[]>());
+        if (_nowSendCount > 0)
+        {
+            memcpy(newBuff.get(), _sendBuff.get(), _nowSendCount);
+        }
+        _sendBuffSize += RECV_BUFF_SIZE;
+        _sendBuff = newBuff;
+    }
+    
+    memcpy((_sendBuff.get() + _nowSendCount), buff, size);
+    _nowSendCount += size;
 }
 
-std::string& ClientSession::getSendBuff()
+uint8_t* ClientSession::getSendBuff()
 {
-    return _sendBuff;
+    return _sendBuff.get();
 }
 
-char* ClientSession::getRecvBuff()
+uint8_t* ClientSession::getRecvBuff()
 {
     if (_recvBuff != nullptr)
     {
@@ -35,7 +48,7 @@ char* ClientSession::getRecvBuff()
 
 void ClientSession::clearSendBuff()
 {
-    _sendBuff = "";
+    _nowSendCount = 0;
 }
 
 void ClientSession::closeSession()
@@ -67,10 +80,10 @@ int ClientSession::recvData()
         if (_recvBuffSize < totalRecv + nRecv)
         {
             //擴大buff
-            std::shared_ptr<char> newBuff(new char[_recvBuffSize + RECV_BUFF_SIZE], std::default_delete<char[]>());
-            if (_recvBuffSize > 0)
+            std::shared_ptr<uint8_t> newBuff(new uint8_t[_recvBuffSize + RECV_BUFF_SIZE], std::default_delete<uint8_t[]>());
+            if (totalRecv > 0)
             {
-                memcpy(newBuff.get(), _recvBuff.get(), _recvBuffSize);
+                memcpy(newBuff.get(), _recvBuff.get(), totalRecv);
             }
             _recvBuffSize += RECV_BUFF_SIZE;
             _recvBuff = newBuff;
@@ -92,9 +105,9 @@ int ClientSession::recvData()
 
 int ClientSession::sendData()
 {
-    if (_sendBuff.length() > 0)
+    if (_nowSendCount > 0)
     {
-        int nsend = send(_clientSocket, _sendBuff.c_str(), (int)_sendBuff.length(), 0);
+        int nsend = send(_clientSocket, (char *)_sendBuff.get(), (int)_nowSendCount, 0);
         printf("\nsend %d byte.\n", nsend);
         clearSendBuff();
 

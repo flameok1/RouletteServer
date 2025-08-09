@@ -1,0 +1,8 @@
+{
+  "name": "rouletteserver",
+  "version-string": "1.0.0",
+  "builtin-baseline": "f993fc42532591aeb07328bbe0add868b0629d0f",
+  "dependencies": [
+	"protobuf"
+  ]
+}

@@ -27,8 +27,8 @@
 typedef void (*connectCallBack)(ClientSession* pSesssion);
 typedef std::function<void(ClientSession*)> connectCallBackFunction;
 
-typedef void (*recvCallBack)(ClientSession* pSesssion, char* pBuff, int recvCount);
-typedef std::function<void(ClientSession*, char*, int)> recvCallbackFunction;
+typedef void (*recvCallBack)(ClientSession* pSesssion, uint8_t* pBuff, int recvCount);
+typedef std::function<void(ClientSession*, uint8_t*, int)> recvCallbackFunction;
 
 typedef void (*disconnectCallBack)(ClientSession* pSesssion);
 typedef std::function<void(ClientSession*)> disconnectCallBackFunction;
@@ -124,7 +124,7 @@ protected:
 	/// <summary>
 	/// 接收資料後 處理function
 	/// </summary>
-	virtual void recvHandle(ClientSession *pSession, char* pBuff, int recvCount);
+	virtual void recvHandle(ClientSession *pSession, uint8_t* pBuff, int recvCount);
 
 	/// <summary>
 	/// 斷線處理function

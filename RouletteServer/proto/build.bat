@@ -1,0 +1,1 @@
+..\..\vcpkg_installed\x64-windows\tools\protobuf\protoc -I=. --cpp_out=. login.proto

@@ -19,6 +19,12 @@
     <Filter Include="來源檔案\FLAMEServer">
       <UniqueIdentifier>{c16db659-c2ca-4ef3-8dec-d97906f1aed8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="標頭檔\proto">
+      <UniqueIdentifier>{46f4c5cf-e464-4926-b1f1-c1804e8f2496}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="來源檔案\proto">
+      <UniqueIdentifier>{2cd2a37a-b69c-4e31-95a1-5cfb8f08b185}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FLAMEServer\FLAMEServer.cpp">
@@ -32,6 +38,9 @@
     </ClCompile>
     <ClCompile Include="CPlater.cpp">
       <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="proto\login.pb.cc">
+      <Filter>來源檔案\proto</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -51,6 +60,15 @@
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="Base64.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="proto\login.pb.h">
+      <Filter>標頭檔\proto</Filter>
+    </ClInclude>
+    <ClInclude Include="ws_frame_tool.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>

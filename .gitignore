@@ -43,3 +43,4 @@
 .vs/
 x64/
 RouletteServer/x64/
+vcpkg_installed/

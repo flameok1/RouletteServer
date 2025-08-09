@@ -353,7 +353,7 @@ void FLAMEServer::setRecvCB(recvCallBack recvCB)
     _recvCB = recvCB;
 }
 
-void FLAMEServer::recvHandle(ClientSession* pSession, char* pBuff, int recvCount)
+void FLAMEServer::recvHandle(ClientSession* pSession, uint8_t* pBuff, int recvCount)
 {
     if (_recvCB != nullptr)
         _recvCB(pSession, pBuff, recvCount);
