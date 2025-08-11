@@ -140,6 +140,7 @@
     <ClCompile Include="proto\game.pb.cc" />
     <ClCompile Include="proto\login.pb.cc" />
     <ClCompile Include="RouletteServer.cpp" />
+    <ClCompile Include="ws_frame_tool.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base64.h" />

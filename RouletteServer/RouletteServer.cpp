@@ -15,52 +15,25 @@
 
 
 
-std::unordered_map<SOCKET, std::shared_ptr<CPlayer>> Players;
-
-void connectHandle(ClientSession* cs)
-{
-    if (Players.count(cs->getSocket()) != 0)
-    {
-        return;
-    }
-
-    std::shared_ptr<CPlayer> newPlayer = std::make_shared<CPlayer>(cs->getSocket());
-
-    Players.emplace(cs->getSocket(), newPlayer);
-}
-
-void recvHandle(ClientSession* cs, uint8_t* pBuff, int count)
-{
-    auto PairPlayer = Players.find(cs->getSocket());
-    if (PairPlayer == Players.end())
-    {
-        return;
-    }
-
-    std::cout << pBuff;
-
-    PairPlayer->second->reciveHandle(cs, pBuff, count);
-    
-}
-
-void disconnectHandle(ClientSession* cs)
-{
-
-}
-
 int main()
 {
     FLAMEServer fserver;
 
     CManagerDef::getGameManagerInstance().init();
 
-    fserver.setConnectCB(connectHandle);
-    fserver.setRecvCB(recvHandle);
-    fserver.setDisconnectCB(disconnectHandle);
+    fserver.setConnectCB([](ClientSession* cs) {
+            CManagerDef::getGameManagerInstance().connectHandle(cs);
+        });
+    fserver.setRecvCB([](ClientSession* pSesssion, uint8_t* pBuff, int recvCount) {
+        CManagerDef::getGameManagerInstance().recvHandle(pSesssion, pBuff, recvCount);
+        });
+    fserver.setDisconnectCB([](ClientSession* pSesssion) {
+        CManagerDef::getGameManagerInstance().disconnectHandle(pSesssion);
+        });
 
     fserver.start(8888);
 
-    std::thread gameUpdate(CManagerDef::getGameManagerInstance().update);
+    std::thread gameUpdate(CManagerDef::getGameManagerInstance().gameLoop);
 
 
     gameUpdate.join();

@@ -215,8 +215,8 @@ void FLAMEServer::nonBlockListenThread()
 
                 if (_clientSockts[i]->isNeedClose())
                 {
-                    _clientSockts[i]->closeSession();
                     disconnectHandle(_clientSockts[i].get());
+                    _clientSockts[i]->closeSession();
                     removeFlag = true;
                 }
 

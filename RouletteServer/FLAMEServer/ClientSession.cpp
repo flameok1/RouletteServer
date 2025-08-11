@@ -121,3 +121,8 @@ bool ClientSession::isNeedClose()
 {
     return _isNeedClose;
 }
+
+void ClientSession::setNeedColse()
+{
+    _isNeedClose = true;
+}

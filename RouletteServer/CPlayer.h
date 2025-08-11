@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <memory>
+#include <vector>
 
 class ClientSession;
 
@@ -9,7 +10,7 @@ class ClientSession;
 class CPlayer
 {
 public:
-	CPlayer(int id);
+	CPlayer(int id, ClientSession *pSesssion);
 private:
 	/// <summary>
 	/// recv buff size
@@ -26,6 +27,11 @@ private:
 	/// </summary>
 	size_t _nowDataCount = 0;
 
+	/// <summary>
+	/// ClientSession
+	/// </summary>
+	ClientSession* _pSesssion = nullptr;
+
 	bool isWebSocketUpgrade = false;
 
 	/// <summary>
@@ -36,4 +42,6 @@ private:
 public:
 
 	void reciveHandle(ClientSession* cs, uint8_t* pBuff, int conut);
+
+	void sendData(std::vector<uint8_t>& sendBuff);
 };

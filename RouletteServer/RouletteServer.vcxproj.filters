@@ -54,6 +54,9 @@
     <ClCompile Include="CManagerDef.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="ws_frame_tool.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FLAMEServer\ClientSession.h">

@@ -14,8 +14,8 @@
 
 #define RECV_BUFF_SIZE 1024
 
-CPlayer::CPlayer(int id)
-    :_playerID(id)
+CPlayer::CPlayer(int id, ClientSession* pSesssion)
+    :_playerID(id), _pSesssion(pSesssion)
 {
 
 }
@@ -88,6 +88,20 @@ void CPlayer::reciveHandle(ClientSession* cs, uint8_t* pBuff, int count)
 
             int payloadsize = frame.payload.size();
             uint8_t* payload = frame.payload.data();
+
+            if (frame.opcode == 0x8)
+            {
+                uint16_t closeCode = 1000; // 預設正常關閉
+                if (payloadsize >= 2) {
+                    closeCode = (payload[0] << 8) | payload[1];
+                }
+
+                // 回送 Close Frame 以完成關閉握手
+                uint8_t closeFrame[4] = { 0x88, 0x02, static_cast<uint8_t>(closeCode >> 8), static_cast<uint8_t>(closeCode & 0xFF) };
+                cs->addBuff(closeFrame, 4);
+                cs->setNeedColse();
+                return;
+            }
 
             // 讀長度（小端）
             uint32_t packetLen;
@@ -163,4 +177,9 @@ void CPlayer::reciveHandle(ClientSession* cs, uint8_t* pBuff, int count)
             }
         }
     }
+}
+
+void CPlayer::sendData(std::vector<uint8_t> & sendbuff)
+{
+    _pSesssion->addBuff(sendbuff.data(), sendbuff.size());
 }

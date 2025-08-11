@@ -100,4 +100,9 @@ public:
 	/// 是不是需要關閉
 	/// </summary>
 	bool isNeedClose();
+
+	/// <summary>
+	/// 設定關閉flag
+	/// </summary>
+	void setNeedColse();
 };

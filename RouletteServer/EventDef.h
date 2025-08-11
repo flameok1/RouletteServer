@@ -2,6 +2,7 @@
 
 #include "EventDef.h"
 
+
 enum EVENT
 {
     StartGame = 1
@@ -18,6 +19,7 @@ public:
     int playerId;
 
     StartGameEvent(int Id)
-        : playerId(Id) {
+        : playerId(Id)
+    {
     }
 };

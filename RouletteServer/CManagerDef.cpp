@@ -4,7 +4,7 @@
 #include "CGameManager.h"
 
 
-CEventManager& CManagerDef::getEventInstance() {
+IEventManager& CManagerDef::getEventInstance() {
     static CEventManager instance;
     return instance;
 }
