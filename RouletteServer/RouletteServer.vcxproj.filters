@@ -42,6 +42,18 @@
     <ClCompile Include="proto\login.pb.cc">
       <Filter>來源檔案\proto</Filter>
     </ClCompile>
+    <ClCompile Include="proto\game.pb.cc">
+      <Filter>來源檔案\proto</Filter>
+    </ClCompile>
+    <ClCompile Include="CGameManager .cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="CEventManager .cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="CManagerDef.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FLAMEServer\ClientSession.h">
@@ -69,6 +81,21 @@
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="protocol.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="proto\game.pb.h">
+      <Filter>標頭檔\proto</Filter>
+    </ClInclude>
+    <ClInclude Include="CGameManager.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="CEventManager.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="CManagerDef.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="EventDef.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>

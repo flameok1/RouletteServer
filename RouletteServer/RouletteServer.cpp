@@ -2,10 +2,18 @@
 //
 
 #include <iostream>
-#include "FLAMEServer/FLAMEServer.h"
-#include "CPlayer.h"
 #include <unordered_map>
 #include <memory>
+#include <thread>
+
+#include "FLAMEServer/FLAMEServer.h"
+#include "FLAMEServer/ClientSession.h"
+#include "CPlayer.h"
+#include "CGameManager.h"
+#include "CEventManager.h"
+#include "CManagerDef.h"
+
+
 
 std::unordered_map<SOCKET, std::shared_ptr<CPlayer>> Players;
 
@@ -16,7 +24,7 @@ void connectHandle(ClientSession* cs)
         return;
     }
 
-    std::shared_ptr<CPlayer> newPlayer = std::make_shared<CPlayer>();
+    std::shared_ptr<CPlayer> newPlayer = std::make_shared<CPlayer>(cs->getSocket());
 
     Players.emplace(cs->getSocket(), newPlayer);
 }
@@ -44,19 +52,18 @@ int main()
 {
     FLAMEServer fserver;
 
+    CManagerDef::getGameManagerInstance().init();
+
     fserver.setConnectCB(connectHandle);
     fserver.setRecvCB(recvHandle);
     fserver.setDisconnectCB(disconnectHandle);
 
     fserver.start(8888);
 
-    int exitcode = -1;
-    std::cout << "Enter 0 to exit." << std::endl;
-    std::cin >> exitcode;
-    while (exitcode != 0)
-    {
-        std::cin >> exitcode;
-    }
+    std::thread gameUpdate(CManagerDef::getGameManagerInstance().update);
+
+
+    gameUpdate.join();
 
     fserver.waitShutDown();
 

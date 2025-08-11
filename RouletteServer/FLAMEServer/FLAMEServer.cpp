@@ -2,7 +2,7 @@
 #include "stdio.h"
 #include <thread>
 #include <iostream>
-
+#include "ClientSession.h"
 
 FLAMEServer::FLAMEServer()
 	:_socket(INVALID_SOCKET),_family(AF_INET), _socktype(SOCK_STREAM), _protocol(0), _port(0), _recvCB(nullptr), _useBlockSocketServer(false), shutDownFlag(false)

@@ -2,12 +2,23 @@
 #include "CHttpParser.h"
 #include <iostream>
 #include <memory>
-#include "proto/login.pb.h"
 #include "ws_frame_tool.h"
 #include"protocol.h"
+#include "proto/login.pb.h"
+#include "proto/game.pb.h"
+#include "FLAMEServer/ClientSession.h"
+#include "CManagerDef.h"
+#include "EventDef.h"
+#include "CEventManager.h"
+
 
 #define RECV_BUFF_SIZE 1024
 
+CPlayer::CPlayer(int id)
+    :_playerID(id)
+{
+
+}
 
 void CPlayer::reciveHandle(ClientSession* cs, uint8_t* pBuff, int count)
 {
@@ -100,7 +111,8 @@ void CPlayer::reciveHandle(ClientSession* cs, uint8_t* pBuff, int count)
 
             switch (protocolId)
             {
-            case Protocol::LoginRequest: {
+                case Protocol::LoginRequest:
+                {
                     loginpackage::LoginRequest req;
                     if (req.ParseFromArray(protobufData, protobufLen)) {
                         std::cout << std::endl << "[Login]" << std::endl << "user=" << req.username() << std::endl;
@@ -124,6 +136,24 @@ void CPlayer::reciveHandle(ClientSession* cs, uint8_t* pBuff, int count)
 
                             cs->addBuff(sendbuff.data(), sendbuff.size());
                         }
+                    }
+                    break;
+                }
+                case Protocol::StartGameRequest:
+                {
+                    gamepackage::StartRequest req;
+                    if (req.ParseFromArray(protobufData, protobufLen))
+                    {
+                        int money = req.playermoney();
+
+                        if (money != _playerMoney)
+                        {
+                            std::cout << std::endl << "Money不正確" << std::endl;
+                        }
+
+                        auto startEvent = std::make_shared<StartGameEvent>(_playerID);
+
+                        CManagerDef::getEventInstance().notifyEvent(EVENT::StartGame, startEvent);
                     }
                     break;
                 }

@@ -20,7 +20,8 @@
 #include <functional>
 #include <memory>
 #include <string>
-#include "ClientSession.h"
+
+class ClientSession;
 
 #define SELECT_TIMEOUT 10
 

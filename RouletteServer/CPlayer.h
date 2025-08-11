@@ -1,7 +1,7 @@
 ﻿#pragma once
-
 #include <memory>
-#include "FLAMEServer/ClientSession.h"
+
+class ClientSession;
 
 /// <summary>
 /// 玩家Class，會在連線後建立
@@ -9,6 +9,7 @@
 class CPlayer
 {
 public:
+	CPlayer(int id);
 private:
 	/// <summary>
 	/// recv buff size
@@ -27,6 +28,11 @@ private:
 
 	bool isWebSocketUpgrade = false;
 
+	/// <summary>
+	/// 暫時用socket當ID，目前沒用資料庫
+	/// </summary>
+	int _playerID = 0;
+	int _playerMoney = 10000;
 public:
 
 	void reciveHandle(ClientSession* cs, uint8_t* pBuff, int conut);

@@ -131,19 +131,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CEventManager .cpp" />
+    <ClCompile Include="CGameManager .cpp" />
+    <ClCompile Include="CManagerDef.cpp" />
     <ClCompile Include="CPlater.cpp" />
     <ClCompile Include="FLAMEServer\ClientSession.cpp" />
     <ClCompile Include="FLAMEServer\FLAMEServer.cpp" />
+    <ClCompile Include="proto\game.pb.cc" />
     <ClCompile Include="proto\login.pb.cc" />
     <ClCompile Include="RouletteServer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base64.h" />
+    <ClInclude Include="CEventManager.h" />
+    <ClInclude Include="CGameManager.h" />
     <ClInclude Include="CPlayer.h" />
+    <ClInclude Include="EventDef.h" />
     <ClInclude Include="FLAMEServer\ClientSession.h" />
     <ClInclude Include="FLAMEServer\FLAMEServer.h" />
     <ClInclude Include="CHttpParser.h" />
+    <ClInclude Include="CManagerDef.h" />
     <ClInclude Include="protocol.h" />
+    <ClInclude Include="proto\game.pb.h" />
     <ClInclude Include="proto\login.pb.h" />
     <ClInclude Include="SHA1.h" />
     <ClInclude Include="ws_frame_tool.h" />

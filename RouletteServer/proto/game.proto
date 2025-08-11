@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package gamepackage;
+
+message StartRequest {
+  int32  playermoney = 1;
+}
+
+
+message CountDownSync {
+  int32  countdown = 1;
+}
