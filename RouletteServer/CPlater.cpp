@@ -14,10 +14,16 @@
 
 #define RECV_BUFF_SIZE 1024
 
+std::unordered_map<int, protocalHandleFunction> CPlayer::protocolCalls = {
+    {(int)Protocol::LoginRequest, CPlayer::loginReqHandle},
+    {(int)Protocol::StartGameRequest, CPlayer::StartGameReqHandle },
+    {(int)Protocol::BetRequest, CPlayer::BetRequestReqHandle }
+};
+
 CPlayer::CPlayer(int id, ClientSession* pSesssion)
     :_playerID(id), _pSesssion(pSesssion)
 {
-
+    
 }
 
 void CPlayer::reciveHandle(ClientSession* cs, uint8_t* pBuff, int count)
@@ -123,58 +129,103 @@ void CPlayer::reciveHandle(ClientSession* cs, uint8_t* pBuff, int count)
 
             std::vector<uint8_t> resbuffer;
 
-            switch (protocolId)
+            auto protocolCall = protocolCalls.find(protocolId);
+            if (protocolCall != protocolCalls.end())
             {
-                case Protocol::LoginRequest:
-                {
-                    loginpackage::LoginRequest req;
-                    if (req.ParseFromArray(protobufData, protobufLen)) {
-                        std::cout << std::endl << "[Login]" << std::endl << "user=" << req.username() << std::endl;
-                        std::cout << "pass=" << req.password() << std::endl;
-
-                        loginpackage::LoginResponse res;
-
-                        res.set_username(req.username());
-                        res.set_password(req.password());
-
-                        // 計算序列化長度
-                        ressize = res.ByteSizeLong();
-
-                        std::cout << std::endl << std::endl << "user=" << res.username() << std::endl;
-                        std::cout << "pass=" << res.password() << std::endl;
-
-                        std::shared_ptr<uint8_t> resbuffer(new uint8_t[ressize], std::default_delete<uint8_t[]>());
-
-                        if (res.SerializeToArray(resbuffer.get(), ressize)) {
-                            std::vector<uint8_t> sendbuff = makeWebSocketBinaryFrame(Protocol::LoginResponse, resbuffer.get(), ressize);
-
-                            cs->addBuff(sendbuff.data(), sendbuff.size());
-                        }
-                    }
-                    break;
-                }
-                case Protocol::StartGameRequest:
-                {
-                    gamepackage::StartRequest req;
-                    if (req.ParseFromArray(protobufData, protobufLen))
-                    {
-                        int money = req.playermoney();
-
-                        if (money != _playerMoney)
-                        {
-                            std::cout << std::endl << "Money不正確" << std::endl;
-                        }
-
-                        auto startEvent = std::make_shared<StartGameEvent>(_playerID);
-
-                        CManagerDef::getEventInstance().notifyEvent(EVENT::StartGame, startEvent);
-                    }
-                    break;
-                }
-                default:
-                    std::cerr << "Unknown protocol: " << protocolId << std::endl;
-                    break;
+                protocolCall->second(this, protobufData, protobufLen);
             }
+            else
+            {
+                std::cerr << "Unknown protocol: " << protocolId << std::endl;
+            }
+        }
+    }
+}
+
+void CPlayer::loginReqHandle(CPlayer*pPlayer, const uint8_t* protobufData, int protobufLen)
+{
+    loginpackage::LoginRequest req;
+    if (req.ParseFromArray(protobufData, protobufLen)) {
+        std::cout << std::endl << "[Login]" << std::endl << "user=" << req.username() << std::endl;
+        std::cout << "pass=" << req.password() << std::endl;
+
+        loginpackage::LoginResponse res;
+
+        res.set_playerid(pPlayer->_playerID);
+        res.set_playermoney(pPlayer->_playerMoney);
+
+        // 計算序列化長度
+        size_t ressize = res.ByteSizeLong();
+
+        std::cout << std::endl << std::endl << "playerid=" << res.playerid() << std::endl;
+        std::cout << "playermoney=" << res.playermoney() << std::endl;
+
+        std::shared_ptr<uint8_t> resbuffer(new uint8_t[ressize], std::default_delete<uint8_t[]>());
+
+        if (res.SerializeToArray(resbuffer.get(), ressize)) {
+            std::vector<uint8_t> sendbuff = makeWebSocketBinaryFrame(Protocol::LoginResponse, resbuffer.get(), ressize);
+
+            pPlayer->_pSesssion->addBuff(sendbuff.data(), sendbuff.size());
+        }
+    }
+}
+
+void CPlayer::StartGameReqHandle(CPlayer* pPlayer, const uint8_t* protobufData, int protobufLen)
+{
+    gamepackage::StartRequest req;
+    if (req.ParseFromArray(protobufData, protobufLen))
+    {
+        int money = req.playermoney();
+
+        if (money != pPlayer->_playerMoney)
+        {
+            std::cout << std::endl << "Money不正確" << std::endl;
+        }
+
+        auto startEvent = std::make_shared<StartGameEvent>(pPlayer->_playerID);
+
+        CManagerDef::getEventInstance().notifyEvent(EVENT::StartGame, startEvent);
+    }
+}
+
+void CPlayer::BetRequestReqHandle(CPlayer* pPlayer, const uint8_t* protobufData, int protobufLen)
+{
+    gamepackage::BetRequest req;
+    if (req.ParseFromArray(protobufData, protobufLen))
+    {
+        int betnum = req.betnum();
+        int amount = req.amount();
+
+        if (betnum < 0 || betnum >= 30)
+        {
+            return;
+        }
+
+        if (pPlayer->_playerMoney < amount)
+        {
+            return;
+        }
+
+        pPlayer->_batAmounts[betnum] += amount;
+        pPlayer->_playerMoney -= amount;
+
+
+        gamepackage::BetResponse res;
+
+        res.set_betnum(betnum);
+        res.set_amount(pPlayer->_batAmounts[betnum]);
+        res.set_playermoney(pPlayer->_playerMoney);
+
+
+        // 計算序列化長度
+        size_t ressize = res.ByteSizeLong();
+
+        std::shared_ptr<uint8_t> resbuffer(new uint8_t[ressize], std::default_delete<uint8_t[]>());
+
+        if (res.SerializeToArray(resbuffer.get(), ressize)) {
+            std::vector<uint8_t> sendbuff = makeWebSocketBinaryFrame(Protocol::BetResponse, resbuffer.get(), ressize);
+
+            pPlayer->_pSesssion->addBuff(sendbuff.data(), sendbuff.size());
         }
     }
 }

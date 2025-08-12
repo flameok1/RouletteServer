@@ -217,39 +217,27 @@ class LoginResponse final : public ::google::protobuf::Message
 
   // accessors -------------------------------------------------------
   enum : int {
-    kUsernameFieldNumber = 1,
-    kPasswordFieldNumber = 2,
+    kPlayeridFieldNumber = 1,
+    kPlayermoneyFieldNumber = 2,
   };
-  // string username = 1;
-  void clear_username() ;
-  const std::string& username() const;
-  template <typename Arg_ = const std::string&, typename... Args_>
-  void set_username(Arg_&& arg, Args_... args);
-  std::string* mutable_username();
-  PROTOBUF_NODISCARD std::string* release_username();
-  void set_allocated_username(std::string* value);
+  // int32 playerid = 1;
+  void clear_playerid() ;
+  ::int32_t playerid() const;
+  void set_playerid(::int32_t value);
 
   private:
-  const std::string& _internal_username() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_username(
-      const std::string& value);
-  std::string* _internal_mutable_username();
+  ::int32_t _internal_playerid() const;
+  void _internal_set_playerid(::int32_t value);
 
   public:
-  // string password = 2;
-  void clear_password() ;
-  const std::string& password() const;
-  template <typename Arg_ = const std::string&, typename... Args_>
-  void set_password(Arg_&& arg, Args_... args);
-  std::string* mutable_password();
-  PROTOBUF_NODISCARD std::string* release_password();
-  void set_allocated_password(std::string* value);
+  // int32 playermoney = 2;
+  void clear_playermoney() ;
+  ::int32_t playermoney() const;
+  void set_playermoney(::int32_t value);
 
   private:
-  const std::string& _internal_password() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_password(
-      const std::string& value);
-  std::string* _internal_mutable_password();
+  ::int32_t _internal_playermoney() const;
+  void _internal_set_playermoney(::int32_t value);
 
   public:
   // @@protoc_insertion_point(class_scope:loginpackage.LoginResponse)
@@ -258,7 +246,7 @@ class LoginResponse final : public ::google::protobuf::Message
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
       1, 2, 0,
-      51, 2>
+      0, 2>
       _table_;
 
   friend class ::google::protobuf::MessageLite;
@@ -275,8 +263,8 @@ class LoginResponse final : public ::google::protobuf::Message
     inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
                           ::google::protobuf::Arena* arena, const Impl_& from,
                           const LoginResponse& from_msg);
-    ::google::protobuf::internal::ArenaStringPtr username_;
-    ::google::protobuf::internal::ArenaStringPtr password_;
+    ::int32_t playerid_;
+    ::int32_t playermoney_;
     ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
@@ -614,100 +602,48 @@ inline void LoginRequest::set_allocated_password(std::string* value) {
 
 // LoginResponse
 
-// string username = 1;
-inline void LoginResponse::clear_username() {
+// int32 playerid = 1;
+inline void LoginResponse::clear_playerid() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.username_.ClearToEmpty();
+  _impl_.playerid_ = 0;
 }
-inline const std::string& LoginResponse::username() const
-    ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:loginpackage.LoginResponse.username)
-  return _internal_username();
+inline ::int32_t LoginResponse::playerid() const {
+  // @@protoc_insertion_point(field_get:loginpackage.LoginResponse.playerid)
+  return _internal_playerid();
 }
-template <typename Arg_, typename... Args_>
-inline PROTOBUF_ALWAYS_INLINE void LoginResponse::set_username(Arg_&& arg,
-                                                     Args_... args) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.username_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
-  // @@protoc_insertion_point(field_set:loginpackage.LoginResponse.username)
+inline void LoginResponse::set_playerid(::int32_t value) {
+  _internal_set_playerid(value);
+  // @@protoc_insertion_point(field_set:loginpackage.LoginResponse.playerid)
 }
-inline std::string* LoginResponse::mutable_username() ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  std::string* _s = _internal_mutable_username();
-  // @@protoc_insertion_point(field_mutable:loginpackage.LoginResponse.username)
-  return _s;
-}
-inline const std::string& LoginResponse::_internal_username() const {
+inline ::int32_t LoginResponse::_internal_playerid() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
-  return _impl_.username_.Get();
+  return _impl_.playerid_;
 }
-inline void LoginResponse::_internal_set_username(const std::string& value) {
+inline void LoginResponse::_internal_set_playerid(::int32_t value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.username_.Set(value, GetArena());
-}
-inline std::string* LoginResponse::_internal_mutable_username() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  return _impl_.username_.Mutable( GetArena());
-}
-inline std::string* LoginResponse::release_username() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  // @@protoc_insertion_point(field_release:loginpackage.LoginResponse.username)
-  return _impl_.username_.Release();
-}
-inline void LoginResponse::set_allocated_username(std::string* value) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.username_.SetAllocated(value, GetArena());
-  if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.username_.IsDefault()) {
-    _impl_.username_.Set("", GetArena());
-  }
-  // @@protoc_insertion_point(field_set_allocated:loginpackage.LoginResponse.username)
+  _impl_.playerid_ = value;
 }
 
-// string password = 2;
-inline void LoginResponse::clear_password() {
+// int32 playermoney = 2;
+inline void LoginResponse::clear_playermoney() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.password_.ClearToEmpty();
+  _impl_.playermoney_ = 0;
 }
-inline const std::string& LoginResponse::password() const
-    ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:loginpackage.LoginResponse.password)
-  return _internal_password();
+inline ::int32_t LoginResponse::playermoney() const {
+  // @@protoc_insertion_point(field_get:loginpackage.LoginResponse.playermoney)
+  return _internal_playermoney();
 }
-template <typename Arg_, typename... Args_>
-inline PROTOBUF_ALWAYS_INLINE void LoginResponse::set_password(Arg_&& arg,
-                                                     Args_... args) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.password_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
-  // @@protoc_insertion_point(field_set:loginpackage.LoginResponse.password)
+inline void LoginResponse::set_playermoney(::int32_t value) {
+  _internal_set_playermoney(value);
+  // @@protoc_insertion_point(field_set:loginpackage.LoginResponse.playermoney)
 }
-inline std::string* LoginResponse::mutable_password() ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  std::string* _s = _internal_mutable_password();
-  // @@protoc_insertion_point(field_mutable:loginpackage.LoginResponse.password)
-  return _s;
-}
-inline const std::string& LoginResponse::_internal_password() const {
+inline ::int32_t LoginResponse::_internal_playermoney() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
-  return _impl_.password_.Get();
+  return _impl_.playermoney_;
 }
-inline void LoginResponse::_internal_set_password(const std::string& value) {
+inline void LoginResponse::_internal_set_playermoney(::int32_t value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.password_.Set(value, GetArena());
-}
-inline std::string* LoginResponse::_internal_mutable_password() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  return _impl_.password_.Mutable( GetArena());
-}
-inline std::string* LoginResponse::release_password() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  // @@protoc_insertion_point(field_release:loginpackage.LoginResponse.password)
-  return _impl_.password_.Release();
-}
-inline void LoginResponse::set_allocated_password(std::string* value) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.password_.SetAllocated(value, GetArena());
-  if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.password_.IsDefault()) {
-    _impl_.password_.Set("", GetArena());
-  }
-  // @@protoc_insertion_point(field_set_allocated:loginpackage.LoginResponse.password)
+  _impl_.playermoney_ = value;
 }
 
 #ifdef __GNUC__

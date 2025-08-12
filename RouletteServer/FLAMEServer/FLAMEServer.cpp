@@ -343,12 +343,12 @@ void FLAMEServer::setProtocol(int protocol)
     _protocol = protocol;
 }
 
-void FLAMEServer::setConnectCB(connectCallBack connectCB)
+void FLAMEServer::setConnectCB(connectCallBackFunction connectCB)
 {
     _connectCB = connectCB;
 }
 
-void FLAMEServer::setRecvCB(recvCallBack recvCB)
+void FLAMEServer::setRecvCB(recvCallbackFunction recvCB)
 {
     _recvCB = recvCB;
 }
@@ -359,7 +359,7 @@ void FLAMEServer::recvHandle(ClientSession* pSession, uint8_t* pBuff, int recvCo
         _recvCB(pSession, pBuff, recvCount);
 }
 
-void FLAMEServer::setDisconnectCB(disconnectCallBack disconnectCB)
+void FLAMEServer::setDisconnectCB(disconnectCallBackFunction disconnectCB)
 {
     _disconnectCB = disconnectCB;
 }

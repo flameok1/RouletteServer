@@ -108,7 +108,7 @@ int ClientSession::sendData()
     if (_nowSendCount > 0)
     {
         int nsend = send(_clientSocket, (char *)_sendBuff.get(), (int)_nowSendCount, 0);
-        printf("\nsend %d byte.\n", nsend);
+        //printf("\nsend %d byte.\n", nsend);
         clearSendBuff();
 
         return nsend;

@@ -52,6 +52,12 @@ struct TableStruct_game_2eproto {
 extern const ::google::protobuf::internal::DescriptorTable
     descriptor_table_game_2eproto;
 namespace gamepackage {
+class BetRequest;
+struct BetRequestDefaultTypeInternal;
+extern BetRequestDefaultTypeInternal _BetRequest_default_instance_;
+class BetResponse;
+struct BetResponseDefaultTypeInternal;
+extern BetResponseDefaultTypeInternal _BetResponse_default_instance_;
 class CountDownSync;
 struct CountDownSyncDefaultTypeInternal;
 extern CountDownSyncDefaultTypeInternal _CountDownSync_default_instance_;
@@ -408,6 +414,7 @@ class CountDownSync final : public ::google::protobuf::Message
   // accessors -------------------------------------------------------
   enum : int {
     kCountdownFieldNumber = 1,
+    kRoundFieldNumber = 2,
   };
   // int32 countdown = 1;
   void clear_countdown() ;
@@ -419,12 +426,22 @@ class CountDownSync final : public ::google::protobuf::Message
   void _internal_set_countdown(::int32_t value);
 
   public:
+  // int32 round = 2;
+  void clear_round() ;
+  ::int32_t round() const;
+  void set_round(::int32_t value);
+
+  private:
+  ::int32_t _internal_round() const;
+  void _internal_set_round(::int32_t value);
+
+  public:
   // @@protoc_insertion_point(class_scope:gamepackage.CountDownSync)
  private:
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      0, 1, 0,
+      1, 2, 0,
       0, 2>
       _table_;
 
@@ -443,6 +460,423 @@ class CountDownSync final : public ::google::protobuf::Message
                           ::google::protobuf::Arena* arena, const Impl_& from,
                           const CountDownSync& from_msg);
     ::int32_t countdown_;
+    ::int32_t round_;
+    ::google::protobuf::internal::CachedSize _cached_size_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_game_2eproto;
+};
+// -------------------------------------------------------------------
+
+class BetResponse final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:gamepackage.BetResponse) */ {
+ public:
+  inline BetResponse() : BetResponse(nullptr) {}
+  ~BetResponse() PROTOBUF_FINAL;
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+  void operator delete(BetResponse* msg, std::destroying_delete_t) {
+    SharedDtor(*msg);
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(BetResponse));
+  }
+#endif
+
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR BetResponse(
+      ::google::protobuf::internal::ConstantInitialized);
+
+  inline BetResponse(const BetResponse& from) : BetResponse(nullptr, from) {}
+  inline BetResponse(BetResponse&& from) noexcept
+      : BetResponse(nullptr, std::move(from)) {}
+  inline BetResponse& operator=(const BetResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline BetResponse& operator=(BetResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const BetResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const BetResponse* internal_default_instance() {
+    return reinterpret_cast<const BetResponse*>(
+        &_BetResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 3;
+  friend void swap(BetResponse& a, BetResponse& b) { a.Swap(&b); }
+  inline void Swap(BetResponse* other) {
+    if (other == this) return;
+    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(BetResponse* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  BetResponse* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::Message::DefaultConstruct<BetResponse>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const BetResponse& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom(const BetResponse& from) { BetResponse::MergeImpl(*this, from); }
+
+  private:
+  static void MergeImpl(
+      ::google::protobuf::MessageLite& to_msg,
+      const ::google::protobuf::MessageLite& from_msg);
+
+  public:
+  bool IsInitialized() const {
+    return true;
+  }
+  ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
+  #if defined(PROTOBUF_CUSTOM_VTABLE)
+  private:
+  static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
+  static ::uint8_t* _InternalSerialize(
+      const MessageLite& msg, ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream);
+
+  public:
+  ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+    return _InternalSerialize(*this, target, stream);
+  }
+  #else   // PROTOBUF_CUSTOM_VTABLE
+  ::size_t ByteSizeLong() const final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  #endif  // PROTOBUF_CUSTOM_VTABLE
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::google::protobuf::Arena* arena);
+  static void SharedDtor(MessageLite& self);
+  void InternalSwap(BetResponse* other);
+ private:
+  template <typename T>
+  friend ::absl::string_view(
+      ::google::protobuf::internal::GetAnyMessageName)();
+  static ::absl::string_view FullMessageName() { return "gamepackage.BetResponse"; }
+
+ protected:
+  explicit BetResponse(::google::protobuf::Arena* arena);
+  BetResponse(::google::protobuf::Arena* arena, const BetResponse& from);
+  BetResponse(::google::protobuf::Arena* arena, BetResponse&& from) noexcept
+      : BetResponse(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+  static void* PlacementNew_(const void*, void* mem,
+                             ::google::protobuf::Arena* arena);
+  static constexpr auto InternalNewImpl_();
+  static const ::google::protobuf::internal::ClassDataFull _class_data_;
+
+ public:
+  ::google::protobuf::Metadata GetMetadata() const;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  enum : int {
+    kBetnumFieldNumber = 1,
+    kAmountFieldNumber = 2,
+    kPlayermoneyFieldNumber = 3,
+  };
+  // int32 betnum = 1;
+  void clear_betnum() ;
+  ::int32_t betnum() const;
+  void set_betnum(::int32_t value);
+
+  private:
+  ::int32_t _internal_betnum() const;
+  void _internal_set_betnum(::int32_t value);
+
+  public:
+  // int32 amount = 2;
+  void clear_amount() ;
+  ::int32_t amount() const;
+  void set_amount(::int32_t value);
+
+  private:
+  ::int32_t _internal_amount() const;
+  void _internal_set_amount(::int32_t value);
+
+  public:
+  // int32 playermoney = 3;
+  void clear_playermoney() ;
+  ::int32_t playermoney() const;
+  void set_playermoney(::int32_t value);
+
+  private:
+  ::int32_t _internal_playermoney() const;
+  void _internal_set_playermoney(::int32_t value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:gamepackage.BetResponse)
+ private:
+  class _Internal;
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      2, 3, 0,
+      0, 2>
+      _table_;
+
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(
+        ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena, const Impl_& from,
+                          const BetResponse& from_msg);
+    ::int32_t betnum_;
+    ::int32_t amount_;
+    ::int32_t playermoney_;
+    ::google::protobuf::internal::CachedSize _cached_size_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_game_2eproto;
+};
+// -------------------------------------------------------------------
+
+class BetRequest final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:gamepackage.BetRequest) */ {
+ public:
+  inline BetRequest() : BetRequest(nullptr) {}
+  ~BetRequest() PROTOBUF_FINAL;
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+  void operator delete(BetRequest* msg, std::destroying_delete_t) {
+    SharedDtor(*msg);
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(BetRequest));
+  }
+#endif
+
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR BetRequest(
+      ::google::protobuf::internal::ConstantInitialized);
+
+  inline BetRequest(const BetRequest& from) : BetRequest(nullptr, from) {}
+  inline BetRequest(BetRequest&& from) noexcept
+      : BetRequest(nullptr, std::move(from)) {}
+  inline BetRequest& operator=(const BetRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline BetRequest& operator=(BetRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const BetRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const BetRequest* internal_default_instance() {
+    return reinterpret_cast<const BetRequest*>(
+        &_BetRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 2;
+  friend void swap(BetRequest& a, BetRequest& b) { a.Swap(&b); }
+  inline void Swap(BetRequest* other) {
+    if (other == this) return;
+    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(BetRequest* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  BetRequest* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::Message::DefaultConstruct<BetRequest>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const BetRequest& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom(const BetRequest& from) { BetRequest::MergeImpl(*this, from); }
+
+  private:
+  static void MergeImpl(
+      ::google::protobuf::MessageLite& to_msg,
+      const ::google::protobuf::MessageLite& from_msg);
+
+  public:
+  bool IsInitialized() const {
+    return true;
+  }
+  ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
+  #if defined(PROTOBUF_CUSTOM_VTABLE)
+  private:
+  static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
+  static ::uint8_t* _InternalSerialize(
+      const MessageLite& msg, ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream);
+
+  public:
+  ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+    return _InternalSerialize(*this, target, stream);
+  }
+  #else   // PROTOBUF_CUSTOM_VTABLE
+  ::size_t ByteSizeLong() const final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  #endif  // PROTOBUF_CUSTOM_VTABLE
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::google::protobuf::Arena* arena);
+  static void SharedDtor(MessageLite& self);
+  void InternalSwap(BetRequest* other);
+ private:
+  template <typename T>
+  friend ::absl::string_view(
+      ::google::protobuf::internal::GetAnyMessageName)();
+  static ::absl::string_view FullMessageName() { return "gamepackage.BetRequest"; }
+
+ protected:
+  explicit BetRequest(::google::protobuf::Arena* arena);
+  BetRequest(::google::protobuf::Arena* arena, const BetRequest& from);
+  BetRequest(::google::protobuf::Arena* arena, BetRequest&& from) noexcept
+      : BetRequest(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+  static void* PlacementNew_(const void*, void* mem,
+                             ::google::protobuf::Arena* arena);
+  static constexpr auto InternalNewImpl_();
+  static const ::google::protobuf::internal::ClassDataFull _class_data_;
+
+ public:
+  ::google::protobuf::Metadata GetMetadata() const;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  enum : int {
+    kBetnumFieldNumber = 1,
+    kAmountFieldNumber = 2,
+  };
+  // int32 betnum = 1;
+  void clear_betnum() ;
+  ::int32_t betnum() const;
+  void set_betnum(::int32_t value);
+
+  private:
+  ::int32_t _internal_betnum() const;
+  void _internal_set_betnum(::int32_t value);
+
+  public:
+  // int32 amount = 2;
+  void clear_amount() ;
+  ::int32_t amount() const;
+  void set_amount(::int32_t value);
+
+  private:
+  ::int32_t _internal_amount() const;
+  void _internal_set_amount(::int32_t value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:gamepackage.BetRequest)
+ private:
+  class _Internal;
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      1, 2, 0,
+      0, 2>
+      _table_;
+
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(
+        ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena, const Impl_& from,
+                          const BetRequest& from_msg);
+    ::int32_t betnum_;
+    ::int32_t amount_;
     ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
@@ -512,6 +946,146 @@ inline ::int32_t CountDownSync::_internal_countdown() const {
 inline void CountDownSync::_internal_set_countdown(::int32_t value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.countdown_ = value;
+}
+
+// int32 round = 2;
+inline void CountDownSync::clear_round() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.round_ = 0;
+}
+inline ::int32_t CountDownSync::round() const {
+  // @@protoc_insertion_point(field_get:gamepackage.CountDownSync.round)
+  return _internal_round();
+}
+inline void CountDownSync::set_round(::int32_t value) {
+  _internal_set_round(value);
+  // @@protoc_insertion_point(field_set:gamepackage.CountDownSync.round)
+}
+inline ::int32_t CountDownSync::_internal_round() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.round_;
+}
+inline void CountDownSync::_internal_set_round(::int32_t value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.round_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// BetRequest
+
+// int32 betnum = 1;
+inline void BetRequest::clear_betnum() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.betnum_ = 0;
+}
+inline ::int32_t BetRequest::betnum() const {
+  // @@protoc_insertion_point(field_get:gamepackage.BetRequest.betnum)
+  return _internal_betnum();
+}
+inline void BetRequest::set_betnum(::int32_t value) {
+  _internal_set_betnum(value);
+  // @@protoc_insertion_point(field_set:gamepackage.BetRequest.betnum)
+}
+inline ::int32_t BetRequest::_internal_betnum() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.betnum_;
+}
+inline void BetRequest::_internal_set_betnum(::int32_t value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.betnum_ = value;
+}
+
+// int32 amount = 2;
+inline void BetRequest::clear_amount() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.amount_ = 0;
+}
+inline ::int32_t BetRequest::amount() const {
+  // @@protoc_insertion_point(field_get:gamepackage.BetRequest.amount)
+  return _internal_amount();
+}
+inline void BetRequest::set_amount(::int32_t value) {
+  _internal_set_amount(value);
+  // @@protoc_insertion_point(field_set:gamepackage.BetRequest.amount)
+}
+inline ::int32_t BetRequest::_internal_amount() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.amount_;
+}
+inline void BetRequest::_internal_set_amount(::int32_t value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.amount_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// BetResponse
+
+// int32 betnum = 1;
+inline void BetResponse::clear_betnum() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.betnum_ = 0;
+}
+inline ::int32_t BetResponse::betnum() const {
+  // @@protoc_insertion_point(field_get:gamepackage.BetResponse.betnum)
+  return _internal_betnum();
+}
+inline void BetResponse::set_betnum(::int32_t value) {
+  _internal_set_betnum(value);
+  // @@protoc_insertion_point(field_set:gamepackage.BetResponse.betnum)
+}
+inline ::int32_t BetResponse::_internal_betnum() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.betnum_;
+}
+inline void BetResponse::_internal_set_betnum(::int32_t value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.betnum_ = value;
+}
+
+// int32 amount = 2;
+inline void BetResponse::clear_amount() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.amount_ = 0;
+}
+inline ::int32_t BetResponse::amount() const {
+  // @@protoc_insertion_point(field_get:gamepackage.BetResponse.amount)
+  return _internal_amount();
+}
+inline void BetResponse::set_amount(::int32_t value) {
+  _internal_set_amount(value);
+  // @@protoc_insertion_point(field_set:gamepackage.BetResponse.amount)
+}
+inline ::int32_t BetResponse::_internal_amount() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.amount_;
+}
+inline void BetResponse::_internal_set_amount(::int32_t value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.amount_ = value;
+}
+
+// int32 playermoney = 3;
+inline void BetResponse::clear_playermoney() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.playermoney_ = 0;
+}
+inline ::int32_t BetResponse::playermoney() const {
+  // @@protoc_insertion_point(field_get:gamepackage.BetResponse.playermoney)
+  return _internal_playermoney();
+}
+inline void BetResponse::set_playermoney(::int32_t value) {
+  _internal_set_playermoney(value);
+  // @@protoc_insertion_point(field_set:gamepackage.BetResponse.playermoney)
+}
+inline ::int32_t BetResponse::_internal_playermoney() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.playermoney_;
+}
+inline void BetResponse::_internal_set_playermoney(::int32_t value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.playermoney_ = value;
 }
 
 #ifdef __GNUC__

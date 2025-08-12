@@ -28,12 +28,8 @@ namespace loginpackage {
 
 inline constexpr LoginResponse::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
-      : username_(
-            &::google::protobuf::internal::fixed_address_empty_string,
-            ::_pbi::ConstantInitialized()),
-        password_(
-            &::google::protobuf::internal::fixed_address_empty_string,
-            ::_pbi::ConstantInitialized()),
+      : playerid_{0},
+        playermoney_{0},
         _cached_size_{0} {}
 
 template <typename>
@@ -111,8 +107,8 @@ const ::uint32_t
         ~0u,  // no _inlined_string_donated_
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::loginpackage::LoginResponse, _impl_.username_),
-        PROTOBUF_FIELD_OFFSET(::loginpackage::LoginResponse, _impl_.password_),
+        PROTOBUF_FIELD_OFFSET(::loginpackage::LoginResponse, _impl_.playerid_),
+        PROTOBUF_FIELD_OFFSET(::loginpackage::LoginResponse, _impl_.playermoney_),
 };
 
 static const ::_pbi::MigrationSchema
@@ -128,14 +124,14 @@ const char descriptor_table_protodef_login_2eproto[] ABSL_ATTRIBUTE_SECTION_VARI
     protodesc_cold) = {
     "\n\013login.proto\022\014loginpackage\"2\n\014LoginRequ"
     "est\022\020\n\010username\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\""
-    "3\n\rLoginResponse\022\020\n\010username\030\001 \001(\t\022\020\n\010pa"
-    "ssword\030\002 \001(\tb\006proto3"
+    "6\n\rLoginResponse\022\020\n\010playerid\030\001 \001(\005\022\023\n\013pl"
+    "ayermoney\030\002 \001(\005b\006proto3"
 };
 static ::absl::once_flag descriptor_table_login_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_login_2eproto = {
     false,
     false,
-    140,
+    143,
     descriptor_table_protodef_login_2eproto,
     "login.proto",
     &descriptor_table_login_2eproto_once,
@@ -424,38 +420,24 @@ LoginResponse::LoginResponse(::google::protobuf::Arena* arena)
   SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:loginpackage.LoginResponse)
 }
-inline PROTOBUF_NDEBUG_INLINE LoginResponse::Impl_::Impl_(
-    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-    const Impl_& from, const ::loginpackage::LoginResponse& from_msg)
-      : username_(arena, from.username_),
-        password_(arena, from.password_),
-        _cached_size_{0} {}
-
 LoginResponse::LoginResponse(
-    ::google::protobuf::Arena* arena,
-    const LoginResponse& from)
-#if defined(PROTOBUF_CUSTOM_VTABLE)
-    : ::google::protobuf::Message(arena, _class_data_.base()) {
-#else   // PROTOBUF_CUSTOM_VTABLE
-    : ::google::protobuf::Message(arena) {
-#endif  // PROTOBUF_CUSTOM_VTABLE
-  LoginResponse* const _this = this;
-  (void)_this;
-  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
-      from._internal_metadata_);
-  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
-
-  // @@protoc_insertion_point(copy_constructor:loginpackage.LoginResponse)
+    ::google::protobuf::Arena* arena, const LoginResponse& from)
+    : LoginResponse(arena) {
+  MergeFrom(from);
 }
 inline PROTOBUF_NDEBUG_INLINE LoginResponse::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility,
     ::google::protobuf::Arena* arena)
-      : username_(arena),
-        password_(arena),
-        _cached_size_{0} {}
+      : _cached_size_{0} {}
 
 inline void LoginResponse::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, playerid_),
+           0,
+           offsetof(Impl_, playermoney_) -
+               offsetof(Impl_, playerid_) +
+               sizeof(Impl_::playermoney_));
 }
 LoginResponse::~LoginResponse() {
   // @@protoc_insertion_point(destructor:loginpackage.LoginResponse)
@@ -465,8 +447,6 @@ inline void LoginResponse::SharedDtor(MessageLite& self) {
   LoginResponse& this_ = static_cast<LoginResponse&>(self);
   this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   ABSL_DCHECK(this_.GetArena() == nullptr);
-  this_._impl_.username_.Destroy();
-  this_._impl_.password_.Destroy();
   this_._impl_.~Impl_();
 }
 
@@ -475,7 +455,7 @@ inline void* LoginResponse::PlacementNew_(const void*, void* mem,
   return ::new (mem) LoginResponse(arena);
 }
 constexpr auto LoginResponse::InternalNewImpl_() {
-  return ::google::protobuf::internal::MessageCreator::CopyInit(sizeof(LoginResponse),
+  return ::google::protobuf::internal::MessageCreator::ZeroInit(sizeof(LoginResponse),
                                             alignof(LoginResponse));
 }
 PROTOBUF_CONSTINIT
@@ -506,7 +486,7 @@ const ::google::protobuf::internal::ClassData* LoginResponse::GetClassData() con
   return _class_data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<1, 2, 0, 51, 2> LoginResponse::_table_ = {
+const ::_pbi::TcParseTable<1, 2, 0, 0, 2> LoginResponse::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
@@ -524,28 +504,24 @@ const ::_pbi::TcParseTable<1, 2, 0, 51, 2> LoginResponse::_table_ = {
     ::_pbi::TcParser::GetTable<::loginpackage::LoginResponse>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
-    // string password = 2;
-    {::_pbi::TcParser::FastUS1,
-     {18, 63, 0, PROTOBUF_FIELD_OFFSET(LoginResponse, _impl_.password_)}},
-    // string username = 1;
-    {::_pbi::TcParser::FastUS1,
-     {10, 63, 0, PROTOBUF_FIELD_OFFSET(LoginResponse, _impl_.username_)}},
+    // int32 playermoney = 2;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(LoginResponse, _impl_.playermoney_), 63>(),
+     {16, 63, 0, PROTOBUF_FIELD_OFFSET(LoginResponse, _impl_.playermoney_)}},
+    // int32 playerid = 1;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(LoginResponse, _impl_.playerid_), 63>(),
+     {8, 63, 0, PROTOBUF_FIELD_OFFSET(LoginResponse, _impl_.playerid_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // string username = 1;
-    {PROTOBUF_FIELD_OFFSET(LoginResponse, _impl_.username_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
-    // string password = 2;
-    {PROTOBUF_FIELD_OFFSET(LoginResponse, _impl_.password_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+    // int32 playerid = 1;
+    {PROTOBUF_FIELD_OFFSET(LoginResponse, _impl_.playerid_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kInt32)},
+    // int32 playermoney = 2;
+    {PROTOBUF_FIELD_OFFSET(LoginResponse, _impl_.playermoney_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kInt32)},
   }},
   // no aux_entries
   {{
-    "\32\10\10\0\0\0\0\0"
-    "loginpackage.LoginResponse"
-    "username"
-    "password"
   }},
 };
 
@@ -556,8 +532,9 @@ PROTOBUF_NOINLINE void LoginResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.username_.ClearToEmpty();
-  _impl_.password_.ClearToEmpty();
+  ::memset(&_impl_.playerid_, 0, static_cast<::size_t>(
+      reinterpret_cast<char*>(&_impl_.playermoney_) -
+      reinterpret_cast<char*>(&_impl_.playerid_)) + sizeof(_impl_.playermoney_));
   _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
@@ -576,20 +553,18 @@ PROTOBUF_NOINLINE void LoginResponse::Clear() {
           ::uint32_t cached_has_bits = 0;
           (void)cached_has_bits;
 
-          // string username = 1;
-          if (!this_._internal_username().empty()) {
-            const std::string& _s = this_._internal_username();
-            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-                _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "loginpackage.LoginResponse.username");
-            target = stream->WriteStringMaybeAliased(1, _s, target);
+          // int32 playerid = 1;
+          if (this_._internal_playerid() != 0) {
+            target = ::google::protobuf::internal::WireFormatLite::
+                WriteInt32ToArrayWithField<1>(
+                    stream, this_._internal_playerid(), target);
           }
 
-          // string password = 2;
-          if (!this_._internal_password().empty()) {
-            const std::string& _s = this_._internal_password();
-            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-                _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "loginpackage.LoginResponse.password");
-            target = stream->WriteStringMaybeAliased(2, _s, target);
+          // int32 playermoney = 2;
+          if (this_._internal_playermoney() != 0) {
+            target = ::google::protobuf::internal::WireFormatLite::
+                WriteInt32ToArrayWithField<2>(
+                    stream, this_._internal_playermoney(), target);
           }
 
           if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
@@ -617,15 +592,15 @@ PROTOBUF_NOINLINE void LoginResponse::Clear() {
 
           ::_pbi::Prefetch5LinesFrom7Lines(&this_);
            {
-            // string username = 1;
-            if (!this_._internal_username().empty()) {
-              total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
-                                              this_._internal_username());
+            // int32 playerid = 1;
+            if (this_._internal_playerid() != 0) {
+              total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+                  this_._internal_playerid());
             }
-            // string password = 2;
-            if (!this_._internal_password().empty()) {
-              total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
-                                              this_._internal_password());
+            // int32 playermoney = 2;
+            if (this_._internal_playermoney() != 0) {
+              total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+                  this_._internal_playermoney());
             }
           }
           return this_.MaybeComputeUnknownFieldsSize(total_size,
@@ -640,11 +615,11 @@ void LoginResponse::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::g
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!from._internal_username().empty()) {
-    _this->_internal_set_username(from._internal_username());
+  if (from._internal_playerid() != 0) {
+    _this->_impl_.playerid_ = from._impl_.playerid_;
   }
-  if (!from._internal_password().empty()) {
-    _this->_internal_set_password(from._internal_password());
+  if (from._internal_playermoney() != 0) {
+    _this->_impl_.playermoney_ = from._impl_.playermoney_;
   }
   _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -659,11 +634,13 @@ void LoginResponse::CopyFrom(const LoginResponse& from) {
 
 void LoginResponse::InternalSwap(LoginResponse* PROTOBUF_RESTRICT other) {
   using std::swap;
-  auto* arena = GetArena();
-  ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.username_, &other->_impl_.username_, arena);
-  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.password_, &other->_impl_.password_, arena);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(LoginResponse, _impl_.playermoney_)
+      + sizeof(LoginResponse::_impl_.playermoney_)
+      - PROTOBUF_FIELD_OFFSET(LoginResponse, _impl_.playerid_)>(
+          reinterpret_cast<char*>(&_impl_.playerid_),
+          reinterpret_cast<char*>(&other->_impl_.playerid_));
 }
 
 ::google::protobuf::Metadata LoginResponse::GetMetadata() const {

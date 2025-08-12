@@ -25,13 +25,13 @@ class ClientSession;
 
 #define SELECT_TIMEOUT 10
 
-typedef void (*connectCallBack)(ClientSession* pSesssion);
+//typedef void (*connectCallBack)(ClientSession* pSesssion);
 typedef std::function<void(ClientSession*)> connectCallBackFunction;
 
-typedef void (*recvCallBack)(ClientSession* pSesssion, uint8_t* pBuff, int recvCount);
+//typedef void (*recvCallBack)(ClientSession* pSesssion, uint8_t* pBuff, int recvCount);
 typedef std::function<void(ClientSession*, uint8_t*, int)> recvCallbackFunction;
 
-typedef void (*disconnectCallBack)(ClientSession* pSesssion);
+//typedef void (*disconnectCallBack)(ClientSession* pSesssion);
 typedef std::function<void(ClientSession*)> disconnectCallBackFunction;
 
 /// <summary>
@@ -143,13 +143,13 @@ public:
 	virtual bool start(int port);
 
 	//設定連線CB
-	void setConnectCB(connectCallBack connectCB);
+	void setConnectCB(connectCallBackFunction connectCB);
 
 	//設定接收CB
-	void setRecvCB(recvCallBack);
+	void setRecvCB(recvCallbackFunction recvCB);
 
 	//設定斷線CB
-	void setDisconnectCB(disconnectCallBack disconnectCB);
+	void setDisconnectCB(disconnectCallBackFunction disconnectCB);
 
 	/// <summary>
 	/// 等待server 關閉

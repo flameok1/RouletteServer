@@ -9,4 +9,16 @@ message StartRequest {
 
 message CountDownSync {
   int32  countdown = 1;
+  int32  round = 2;
+}
+
+message BetRequest {
+  int32  betnum = 1;
+  int32  amount = 2;
+}
+
+message BetResponse {
+  int32  betnum = 1;
+  int32  amount = 2;
+  int32  playermoney = 3;
 }
