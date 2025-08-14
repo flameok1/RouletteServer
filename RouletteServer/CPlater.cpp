@@ -234,3 +234,18 @@ void CPlayer::sendData(std::vector<uint8_t> & sendbuff)
 {
     _pSesssion->addBuff(sendbuff.data(), sendbuff.size());
 }
+
+void CPlayer::checkWin(int roundWin)
+{
+    _playerMoney += _batAmounts[roundWin];
+
+    for (int i = 0; i < 30; i++)
+    {
+        _batAmounts[i] = 0;
+    }
+}
+
+int CPlayer::getMoney()
+{
+    return _playerMoney;
+}

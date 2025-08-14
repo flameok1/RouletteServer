@@ -7,6 +7,17 @@ class StartGameEvent;
 class CPlayer;
 class ClientSession;
 
+enum GAME_STEP {
+    STOP,
+    COUNTDOWN,
+    WIN,
+    NEXT_ROUND,
+};
+
+const int ROUNT_TIME = 30;
+
+const int NEXT_ROUNT_WAIT = 5;
+
 class CGameManager
 {
 public:
@@ -22,16 +33,21 @@ private:
 
     std::unordered_map<int, std::shared_ptr<CPlayer>> _players;
 
-    bool _isStartGame = false;
-
     int _elapsedTime = 0;
 
-    int _cowndownTime = 30;
+    int _nowRound = 1;
 
+    int _countdownTime = ROUNT_TIME;
+
+    int _gameStep = GAME_STEP::STOP;
 
     void update(std::chrono::milliseconds milliseconds);
 
+    void calcuWin();
+
     void sendCoolDownSync();
+
+    void sendBetResult(int);
 public:
 	/// <summary>
 	/// 遊戲主要loop

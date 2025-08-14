@@ -77,6 +77,32 @@ struct CountDownSyncDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CountDownSyncDefaultTypeInternal _CountDownSync_default_instance_;
 
+inline constexpr BetResult::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : playermoney_{0},
+        winnum_{0},
+        _cached_size_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR BetResult::BetResult(::_pbi::ConstantInitialized)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(_class_data_.base()),
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(),
+#endif  // PROTOBUF_CUSTOM_VTABLE
+      _impl_(::_pbi::ConstantInitialized()) {
+}
+struct BetResultDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR BetResultDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~BetResultDefaultTypeInternal() {}
+  union {
+    BetResult _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 BetResultDefaultTypeInternal _BetResult_default_instance_;
+
 inline constexpr BetResponse::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : betnum_{0},
@@ -177,6 +203,16 @@ const ::uint32_t
         PROTOBUF_FIELD_OFFSET(::gamepackage::BetResponse, _impl_.betnum_),
         PROTOBUF_FIELD_OFFSET(::gamepackage::BetResponse, _impl_.amount_),
         PROTOBUF_FIELD_OFFSET(::gamepackage::BetResponse, _impl_.playermoney_),
+        ~0u,  // no _has_bits_
+        PROTOBUF_FIELD_OFFSET(::gamepackage::BetResult, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        PROTOBUF_FIELD_OFFSET(::gamepackage::BetResult, _impl_.playermoney_),
+        PROTOBUF_FIELD_OFFSET(::gamepackage::BetResult, _impl_.winnum_),
 };
 
 static const ::_pbi::MigrationSchema
@@ -185,12 +221,14 @@ static const ::_pbi::MigrationSchema
         {9, -1, -1, sizeof(::gamepackage::CountDownSync)},
         {19, -1, -1, sizeof(::gamepackage::BetRequest)},
         {29, -1, -1, sizeof(::gamepackage::BetResponse)},
+        {40, -1, -1, sizeof(::gamepackage::BetResult)},
 };
 static const ::_pb::Message* const file_default_instances[] = {
     &::gamepackage::_StartRequest_default_instance_._instance,
     &::gamepackage::_CountDownSync_default_instance_._instance,
     &::gamepackage::_BetRequest_default_instance_._instance,
     &::gamepackage::_BetResponse_default_instance_._instance,
+    &::gamepackage::_BetResult_default_instance_._instance,
 };
 const char descriptor_table_protodef_game_2eproto[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
     protodesc_cold) = {
@@ -199,19 +237,21 @@ const char descriptor_table_protodef_game_2eproto[] ABSL_ATTRIBUTE_SECTION_VARIA
     "\021\n\tcountdown\030\001 \001(\005\022\r\n\005round\030\002 \001(\005\",\n\nBet"
     "Request\022\016\n\006betnum\030\001 \001(\005\022\016\n\006amount\030\002 \001(\005\""
     "B\n\013BetResponse\022\016\n\006betnum\030\001 \001(\005\022\016\n\006amount"
-    "\030\002 \001(\005\022\023\n\013playermoney\030\003 \001(\005b\006proto3"
+    "\030\002 \001(\005\022\023\n\013playermoney\030\003 \001(\005\"0\n\tBetResult"
+    "\022\023\n\013playermoney\030\001 \001(\005\022\016\n\006winnum\030\002 \001(\005b\006p"
+    "roto3"
 };
 static ::absl::once_flag descriptor_table_game_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_game_2eproto = {
     false,
     false,
-    235,
+    285,
     descriptor_table_protodef_game_2eproto,
     "game.proto",
     &descriptor_table_game_2eproto_once,
     nullptr,
     0,
-    4,
+    5,
     schemas,
     file_default_instances,
     TableStruct_game_2eproto::offsets,
@@ -1169,6 +1209,247 @@ void BetResponse::InternalSwap(BetResponse* PROTOBUF_RESTRICT other) {
 }
 
 ::google::protobuf::Metadata BetResponse::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
+class BetResult::_Internal {
+ public:
+};
+
+BetResult::BetResult(::google::protobuf::Arena* arena)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:gamepackage.BetResult)
+}
+BetResult::BetResult(
+    ::google::protobuf::Arena* arena, const BetResult& from)
+    : BetResult(arena) {
+  MergeFrom(from);
+}
+inline PROTOBUF_NDEBUG_INLINE BetResult::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0} {}
+
+inline void BetResult::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, playermoney_),
+           0,
+           offsetof(Impl_, winnum_) -
+               offsetof(Impl_, playermoney_) +
+               sizeof(Impl_::winnum_));
+}
+BetResult::~BetResult() {
+  // @@protoc_insertion_point(destructor:gamepackage.BetResult)
+  SharedDtor(*this);
+}
+inline void BetResult::SharedDtor(MessageLite& self) {
+  BetResult& this_ = static_cast<BetResult&>(self);
+  this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  ABSL_DCHECK(this_.GetArena() == nullptr);
+  this_._impl_.~Impl_();
+}
+
+inline void* BetResult::PlacementNew_(const void*, void* mem,
+                                        ::google::protobuf::Arena* arena) {
+  return ::new (mem) BetResult(arena);
+}
+constexpr auto BetResult::InternalNewImpl_() {
+  return ::google::protobuf::internal::MessageCreator::ZeroInit(sizeof(BetResult),
+                                            alignof(BetResult));
+}
+PROTOBUF_CONSTINIT
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::google::protobuf::internal::ClassDataFull BetResult::_class_data_ = {
+    ::google::protobuf::internal::ClassData{
+        &_BetResult_default_instance_._instance,
+        &_table_.header,
+        nullptr,  // OnDemandRegisterArenaDtor
+        nullptr,  // IsInitialized
+        &BetResult::MergeImpl,
+        ::google::protobuf::Message::GetNewImpl<BetResult>(),
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        &BetResult::SharedDtor,
+        ::google::protobuf::Message::GetClearImpl<BetResult>(), &BetResult::ByteSizeLong,
+            &BetResult::_InternalSerialize,
+#endif  // PROTOBUF_CUSTOM_VTABLE
+        PROTOBUF_FIELD_OFFSET(BetResult, _impl_._cached_size_),
+        false,
+    },
+    &BetResult::kDescriptorMethods,
+    &descriptor_table_game_2eproto,
+    nullptr,  // tracker
+};
+const ::google::protobuf::internal::ClassData* BetResult::GetClassData() const {
+  ::google::protobuf::internal::PrefetchToLocalCache(&_class_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_class_data_.tc_table);
+  return _class_data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<1, 2, 0, 0, 2> BetResult::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    2, 8,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967292,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    2,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    _class_data_.base(),
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::gamepackage::BetResult>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // int32 winnum = 2;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(BetResult, _impl_.winnum_), 63>(),
+     {16, 63, 0, PROTOBUF_FIELD_OFFSET(BetResult, _impl_.winnum_)}},
+    // int32 playermoney = 1;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(BetResult, _impl_.playermoney_), 63>(),
+     {8, 63, 0, PROTOBUF_FIELD_OFFSET(BetResult, _impl_.playermoney_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // int32 playermoney = 1;
+    {PROTOBUF_FIELD_OFFSET(BetResult, _impl_.playermoney_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kInt32)},
+    // int32 winnum = 2;
+    {PROTOBUF_FIELD_OFFSET(BetResult, _impl_.winnum_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kInt32)},
+  }},
+  // no aux_entries
+  {{
+  }},
+};
+
+PROTOBUF_NOINLINE void BetResult::Clear() {
+// @@protoc_insertion_point(message_clear_start:gamepackage.BetResult)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&_impl_.playermoney_, 0, static_cast<::size_t>(
+      reinterpret_cast<char*>(&_impl_.winnum_) -
+      reinterpret_cast<char*>(&_impl_.playermoney_)) + sizeof(_impl_.winnum_));
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::uint8_t* BetResult::_InternalSerialize(
+            const MessageLite& base, ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) {
+          const BetResult& this_ = static_cast<const BetResult&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::uint8_t* BetResult::_InternalSerialize(
+            ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+          const BetResult& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(serialize_to_array_start:gamepackage.BetResult)
+          ::uint32_t cached_has_bits = 0;
+          (void)cached_has_bits;
+
+          // int32 playermoney = 1;
+          if (this_._internal_playermoney() != 0) {
+            target = ::google::protobuf::internal::WireFormatLite::
+                WriteInt32ToArrayWithField<1>(
+                    stream, this_._internal_playermoney(), target);
+          }
+
+          // int32 winnum = 2;
+          if (this_._internal_winnum() != 0) {
+            target = ::google::protobuf::internal::WireFormatLite::
+                WriteInt32ToArrayWithField<2>(
+                    stream, this_._internal_winnum(), target);
+          }
+
+          if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
+            target =
+                ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+                    this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+          }
+          // @@protoc_insertion_point(serialize_to_array_end:gamepackage.BetResult)
+          return target;
+        }
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::size_t BetResult::ByteSizeLong(const MessageLite& base) {
+          const BetResult& this_ = static_cast<const BetResult&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::size_t BetResult::ByteSizeLong() const {
+          const BetResult& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(message_byte_size_start:gamepackage.BetResult)
+          ::size_t total_size = 0;
+
+          ::uint32_t cached_has_bits = 0;
+          // Prevent compiler warnings about cached_has_bits being unused
+          (void)cached_has_bits;
+
+          ::_pbi::Prefetch5LinesFrom7Lines(&this_);
+           {
+            // int32 playermoney = 1;
+            if (this_._internal_playermoney() != 0) {
+              total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+                  this_._internal_playermoney());
+            }
+            // int32 winnum = 2;
+            if (this_._internal_winnum() != 0) {
+              total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+                  this_._internal_winnum());
+            }
+          }
+          return this_.MaybeComputeUnknownFieldsSize(total_size,
+                                                     &this_._impl_._cached_size_);
+        }
+
+void BetResult::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<BetResult*>(&to_msg);
+  auto& from = static_cast<const BetResult&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:gamepackage.BetResult)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_playermoney() != 0) {
+    _this->_impl_.playermoney_ = from._impl_.playermoney_;
+  }
+  if (from._internal_winnum() != 0) {
+    _this->_impl_.winnum_ = from._impl_.winnum_;
+  }
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void BetResult::CopyFrom(const BetResult& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:gamepackage.BetResult)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void BetResult::InternalSwap(BetResult* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(BetResult, _impl_.winnum_)
+      + sizeof(BetResult::_impl_.winnum_)
+      - PROTOBUF_FIELD_OFFSET(BetResult, _impl_.playermoney_)>(
+          reinterpret_cast<char*>(&_impl_.playermoney_),
+          reinterpret_cast<char*>(&other->_impl_.playermoney_));
+}
+
+::google::protobuf::Metadata BetResult::GetMetadata() const {
   return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
 }
 // @@protoc_insertion_point(namespace_scope)

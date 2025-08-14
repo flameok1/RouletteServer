@@ -135,6 +135,7 @@
     <ClCompile Include="CGameManager .cpp" />
     <ClCompile Include="CManagerDef.cpp" />
     <ClCompile Include="CPlater.cpp" />
+    <ClCompile Include="CRandomSys.cpp" />
     <ClCompile Include="FLAMEServer\ClientSession.cpp" />
     <ClCompile Include="FLAMEServer\FLAMEServer.cpp" />
     <ClCompile Include="proto\game.pb.cc" />
@@ -147,6 +148,7 @@
     <ClInclude Include="CEventManager.h" />
     <ClInclude Include="CGameManager.h" />
     <ClInclude Include="CPlayer.h" />
+    <ClInclude Include="CRandomSys.h" />
     <ClInclude Include="EventDef.h" />
     <ClInclude Include="FLAMEServer\ClientSession.h" />
     <ClInclude Include="FLAMEServer\FLAMEServer.h" />

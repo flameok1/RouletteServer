@@ -62,4 +62,8 @@ public:
 	void reciveHandle(ClientSession* cs, uint8_t* pBuff, int conut);
 
 	void sendData(std::vector<uint8_t>& sendBuff);
+
+	void checkWin(int);
+
+	int getMoney();
 };

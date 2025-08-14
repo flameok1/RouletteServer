@@ -57,6 +57,9 @@
     <ClCompile Include="ws_frame_tool.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="CRandomSys.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FLAMEServer\ClientSession.h">
@@ -99,6 +102,9 @@
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="EventDef.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="CRandomSys.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>

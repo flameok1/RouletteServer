@@ -22,3 +22,8 @@ message BetResponse {
   int32  amount = 2;
   int32  playermoney = 3;
 }
+
+message BetResult {
+  int32  playermoney = 1;
+  int32  winnum = 2;
+}

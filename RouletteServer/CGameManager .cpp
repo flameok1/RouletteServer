@@ -11,6 +11,7 @@
 #include "CEventManager.h"
 #include "EventDef.h"
 #include "CPlayer.h"
+#include "CRandomSys.h"
 
 // fps
 const int TARGET_FPS = 60;
@@ -92,31 +93,59 @@ void CGameManager::gameLoop()
 
 void CGameManager::update(std::chrono::milliseconds milliseconds)
 {
-    if (!_isStartGame)
-    {
-        return;
-    }
-
     _elapsedTime += milliseconds.count();
 
     if (_elapsedTime >= 1000)
     {
         _elapsedTime -= 1000;
-        _cowndownTime--;
-        if (_cowndownTime < 0)
+        _countdownTime--;
+        if (_countdownTime < 0)
         {
-            _cowndownTime = 0;
+            _countdownTime = 0;
         }
 
-        sendCoolDownSync();
+
+        switch (_gameStep)
+        {
+        case GAME_STEP::STOP:
+            break;
+        case GAME_STEP::COUNTDOWN:
+            sendCoolDownSync();
+            break;
+        case GAME_STEP::WIN:
+            calcuWin();
+            break;
+        case GAME_STEP::NEXT_ROUND:
+            _nowRound++;
+            _countdownTime = ROUNT_TIME;
+            _gameStep = GAME_STEP::COUNTDOWN;
+            break;
+        }
+        
     }
+}
+
+void CGameManager::calcuWin()
+{
+    CRandomSys rand(0, 29);
+
+    int winNum = rand.GetRandom();
+
+    for (auto &keyplayer : _players)
+    {
+        keyplayer.second->checkWin(winNum);
+    }
+
+    sendBetResult(winNum);
 }
 
 void CGameManager::sendCoolDownSync()
 {
     gamepackage::CountDownSync CDsync;
 
-    CDsync.set_countdown(_cowndownTime);
+    CDsync.set_round(_nowRound);
+    CDsync.set_countdown(_countdownTime);
+    
 
     // 計算序列化長度
     auto ressize = CDsync.ByteSizeLong();
@@ -130,13 +159,55 @@ void CGameManager::sendCoolDownSync()
             value->sendData(sendbuff);
         }
     }
+
+    if (_countdownTime == 0)
+    {
+        _gameStep = GAME_STEP::WIN;
+    }
+}
+
+void CGameManager::sendBetResult(int winNum)
+{
+    gamepackage::BetResult betResult;
+
+    betResult.set_winnum(winNum);
+
+    // 計算序列化長度
+    size_t nowRessize = 10;
+    size_t playerRessize = 0;
+
+    std::shared_ptr<uint8_t> resbuffer(new uint8_t[nowRessize], std::default_delete<uint8_t[]>());
+
+    for (const auto& [key, value] : _players) {
+        betResult.set_playermoney(value->getMoney());
+
+        playerRessize = betResult.ByteSizeLong();
+
+        if (playerRessize > nowRessize)
+        {
+            nowRessize = playerRessize;
+
+            resbuffer.reset(new uint8_t[nowRessize], std::default_delete<uint8_t[]>());
+        }
+
+        if (betResult.SerializeToArray(resbuffer.get(), playerRessize)) {
+            std::vector<uint8_t> sendbuff = makeWebSocketBinaryFrame(Protocol::GameResult, resbuffer.get(), playerRessize);
+
+            value->sendData(sendbuff);
+        }
+    }
+
+    _gameStep = GAME_STEP::NEXT_ROUND;
+
+    _countdownTime = NEXT_ROUNT_WAIT;
 }
 
 void CGameManager::handlePlayerStartGame(const std::shared_ptr<StartGameEvent>& event) {
 
-    if (!_isStartGame)
+    if (_gameStep == GAME_STEP::STOP)
     {
-        std::cout << "Game Start. " << std::endl;
-        _isStartGame = true;
+        std::cout << std::endl << "Game Start. " << std::endl;
+        _gameStep = GAME_STEP::COUNTDOWN;
+        _countdownTime = ROUNT_TIME;
     }
 }
